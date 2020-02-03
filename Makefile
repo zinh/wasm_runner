@@ -1,4 +1,17 @@
-.PHONY: deps
+CC=clang++
+.PHONY: deps clean
+
+test: wasm_test.out
+	./wasm_test.out
+
+wasm_test.out: tests/wasm_test.o
+	$(CC) tests/wasm_test.o -o wasm_test.out
+
+wasm_test.o: tests/wasm_test.cpp
+	$(CC) -c tests/wasm_test.cpp -o tests/wasm_test.o
+
+clean:
+	rm -rf wasm_test.out
 
 deps:
 	- mkdir -p lib/boost
